@@ -1,0 +1,179 @@
+.button {
+    position: fixed;
+    z-index: 3;
+    height: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%)
+}
+.top {
+    top: 1%
+}
+.bottom {
+    bottom: 1%
+}
+.shadow {
+    background-image: linear-gradient(rgba(46,3,94,0.00), rgba(2,0,27,0.77));
+    background-blend-mode: multiply;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 20%;
+    bottom: -5%;
+    transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+}
+.box {
+    color: white;
+    top: 10%;
+    bottom: 10%;
+    border: 0.5em solid white;
+    left: 10%;
+    right: 10%;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+			overflow-x:hidden;padding:1%;
+		overflow-y: hidden;
+
+}
+.centerme {
+    position: fixed;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0);
+}
+.container, .contained {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.xd {
+    display: flex;
+    width: 50%;
+    position: relative
+}
+.xd img {
+    width: 100%!important;
+    height: auto
+}
+.container {
+    flex-wrap: wrap
+}
+.container img {
+    width: 50%;
+    height: auto;
+}
+.logo {
+    height: auto;
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+}
+.x {
+	opacity:1;
+    max-width: 180px;
+    margin-bottom: 5%;
+    transition: all 0.50s ease-in-out;
+	
+}
+.maxed {max-width:500px;}
+.contained {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.logo.maxed.is-hidden {
+    opacity: 0;
+    transform: scale(0)
+}
+.logo.x.is-hidden {
+    transform: scale(0.5) translate(0, 50%);
+}
+.box.is-hidden {
+    background: #1E1E1E url("/Assets/icoArtboard 4-80.jpg") no-repeat; background-size: 20%; background-attachment: local; overflow-y:auto; background-position: 0% 0%
+	}
+
+.shadow.is-hidden {
+    transform: scale(1, 0);
+    transform-origin: bottom; 
+}
+.temple {
+    position: absolute;
+    right: 5%;
+    width: 40%;
+    bottom: 5%;
+    overflow: hidden;
+    z-index: 2;
+}
+.containme{display:block;} 
+.contact {
+	display: flex;
+	position:absolute;
+	width:100%;
+    font-weight: 800;
+opacity: 0;
+	transition: opacity 0.25s ease-in-out;
+    -moz-transition: opacity 0.25s ease-in-out;
+    -webkit-transition: opacity 0.25s ease-in-out;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-direction: row;
+	 
+	
+	
+}
+.contact p {flex: 1 0 100%}
+.about {text-align: justify; width:100%; padding: 0 10% 0 20%;}
+.contact img, svg {margin:1%; width:20%; }
+a {display:flex; justify-content: center;}
+.kill {opacity:0;}
+.contact.is-hidden{height:auto; opacity:1}
+@media screen and (max-width: 800px) {
+.container img {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+}
+.x {
+    max-width: 30%!important;
+    height: auto;
+}
+.maxed {
+    max-width: 80%;
+}
+.xd {
+    width: 100%;
+    position: relative
+}
+}
+
+@media screen and (max-height: 400px) {
+.contained {
+    flex-direction: row!important;
+    flex-wrap: nowrap!important;
+    justify-content: space-around!important;
+}
+.x {
+    max-height: 150%!important;
+    width: auto!important;
+    margin: 0!important
+}
+.maxed {
+    max-width: 30%!important;
+}
+.logo.x.is-hidden {
+    transform: scale(0.5) translate(0, 0);
+}
+.logo.maxed.is-hidden {
+    display: none;
+}
+}
+html {
+    line-height: 1.15; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: white
+}
