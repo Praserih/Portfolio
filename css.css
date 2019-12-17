@@ -126,7 +126,7 @@ opacity: 0;
 }
 .contact p {flex: 1 0 100%}
 .about {text-align: justify; width:100%; padding: 0 10% 0 20%;}
-.contact img, svg {margin:1%; width:20%; }
+.contact img, svg {margin:1%; width:3em; }
 a {display:flex; justify-content: center;}
 .kill {opacity:0;}
 .contact.is-hidden{height:auto; opacity:1}
