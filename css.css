@@ -61,7 +61,7 @@ h3 {font-style: italic; font-weight: 400}
 }
 .xd img {
     width: 100%!important;
-    height: auto
+    height: 100%;
 }
 .container {
     flex-wrap: wrap
