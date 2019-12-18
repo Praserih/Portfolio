@@ -185,5 +185,8 @@ html {
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    color: white
+    color: white;
+    background: linear-gradient(#27C980, #247FC1);
+    background-image: url("/Assets/Untitled-1.svg"), linear-gradient(#27C980, #247FC1,#27C980);
+	background-size:50%;
 }
