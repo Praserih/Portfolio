@@ -130,7 +130,7 @@ opacity: 0;
 	
 	
 }
-.contact p {flex: 1 0 100%}
+.contact p, .mono{flex: 1 0 100%}
 .about {text-align: justify; width:100%; padding: 0 10% 0 20%;}
 svg {margin:1em; height:2em;
 }
