@@ -134,7 +134,7 @@ opacity: 0;
 .about {text-align: justify; width:100%; padding: 0 10% 0 20%;}
 svg {margin:1em; height:2em;
 }
-path {fill:#ffffff; transition: fill 0.2s cubic-bezier(0.280, 0.840, 0.420, 1);}
+path {fill:#ffffff; transition: fill 1s cubic-bezier(0.280, 0.840, 0.420, 1);}
 a:hover path{fill: url(#my-cool-gradient) #447799;
 }
 a {display:flex; justify-content: center;}
