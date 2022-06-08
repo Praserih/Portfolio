@@ -1,3 +1,7 @@
+body{
+    overflow-x:hidden;
+}
+
 h1 {
   background: -webkit-linear-gradient(#27C980, #247FC1);
   -webkit-background-clip: text;
@@ -7,7 +11,7 @@ h3 {font-style: italic; font-weight: 400}
 .button {
     position: fixed;
     z-index: 3;
-    height: 8%;
+    height: 1.5em;
     left: 50%;
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%)
@@ -34,7 +38,6 @@ h3 {font-style: italic; font-weight: 400}
     color: white;
     top: 10%;
     bottom: 10%;
-    border: 0.5em solid white;
     left: 10%;
     right: 10%;
     z-index: 1;
@@ -75,16 +78,17 @@ h3 {font-style: italic; font-weight: 400}
     transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -webkit-transition: all 0.25s ease-in-out;
-	align-self:flex-end
+	position:absolute;
+    bottom:0;
+    right:0
 }
 .x {
 	opacity:1;
-    max-width: 180px;
-    margin-bottom: 5%;
+    max-width: 2rem;
     transition: all 0.50s ease-in-out;
 	
 }
-.maxed {max-width:500px;}
+.maxed {max-width:  500px;}
 .contained {
     flex-direction: column;
     align-items: center;
@@ -95,7 +99,7 @@ h3 {font-style: italic; font-weight: 400}
     transform: scale(0)
 }
 .logo.x.is-hidden {
-    transform: scale(0.5) translate(0, 50%);
+opacity: .3
 }
 .box.is-hidden {
     background: #1E1E1E url("/Assets/icoArtboard 4-80.jpg") no-repeat; background-size: 20%; background-attachment: local; overflow-y:auto; background-position: 0% 0%
@@ -164,17 +168,11 @@ a {display:flex; justify-content: center;}
     flex-wrap: nowrap!important;
     justify-content: space-around!important;
 }
-.x {
-    max-height: 150%!important;
-    width: auto!important;
-    margin: 0!important
-}
+
 .maxed {
     max-width: 30%!important;
 }
-.logo.x.is-hidden {
-    transform: scale(0.5) translate(0, 0);
-}
+
 .logo.maxed.is-hidden {
     display: none;
 }
