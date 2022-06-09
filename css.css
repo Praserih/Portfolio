@@ -149,13 +149,7 @@ a {display:flex; justify-content: center;}
 .container img {
     width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
 }
-.x {
-    max-width: 30%!important;
-    height: auto;
-}
-.maxed {
-    max-width: 80%;
-}
+
 .xd {
     width: 100%;
     position: relative
