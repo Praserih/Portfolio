@@ -9,18 +9,13 @@
 <script src="colorify.js"></script>
 
 <body>
-   <div id="container"></div>
-<script>
-   var animation = bodymovin.loadAnimation({
-      animationData: flatten('#fe0088', animation),
-      container: document.getElementById('container'), // required
-      path: "comp1.json", // required
-      renderer: 'svg', // required
-      loop: true, // optional
-      autoplay: true, // optional
-      name: "Demo Animation", // optional
-   });
-</script>
+   <lottie-player
+  autoplay
+  loop
+  mode="normal"
+  src="comp1.json"
+ >
+</lottie-player>
     
 </body>
 </html>
