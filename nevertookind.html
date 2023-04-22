@@ -6,12 +6,13 @@
     <title>Lottie</title>
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.11.0/lottie.min.js" integrity="sha512-XCthc/WzPfa+oa49Z3TI6MUK/zlqd67KwyRL9/R19z6uMqBNuv8iEnJ8FWHUFAjC6srr8w3FMZA91Tfn60T/9Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script></head>
+<script src="colorify.js"></script>
+
 <body>
-   <style>.logo_loop{fill:blue}</style>
    <div id="container"></div>
 <script>
    var animation = bodymovin.loadAnimation({
-      // animationData: { /* ... */ },
+      animationData: {animationData: flatten('#fe0088', animation)},
       container: document.getElementById('container'), // required
       path: "comp1.json", // required
       renderer: 'svg', // required
