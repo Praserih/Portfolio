@@ -7,6 +7,14 @@ html {
     scroll-behavior: smooth;
 }
 
+
+.logo_loop_fill path{
+    fill:var(--secondary_color);
+}
+.logo_loop_stroke path{
+    stroke:var(--secondary_color);
+}
+
 body {
     background: var(--primary_color);
     color: var(--secondary_color);
