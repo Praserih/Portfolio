@@ -11,79 +11,97 @@
 ]
     var off = -180;
 
-    $(document).ready(function () {
-
-        $.MultiLanguage("lang.json")
-        randomValue();
 
 
-        $(".port_bg").each(bgoffset)
+function getValue() {
+    var value = $.ajax({
+        url: 'lang.json',
+        async: false,
+        dataType: "json"
 
-        $(".portfolio").mouseenter(function () {
-            $(this).find(".port_bg").children().css("bottom", "0")
-        })
-        $(".portfolio").mouseleave(function () {
-    var off = -180;
-
-            $(this).find(".port_bg").children().each(function(){
-            off = off - 60
-            $(this).css("bottom", off + "%")
-            })
-        })
-
-        let anime = $('.window>div');
-        var step = 0;
-
-        $('.window .fa-xmark').click(function () {
-            $(".hidean").css({
-                "visibility": "hidden",
-                "transform": "translateY(10em)",
-                "opacity": "0"
-            })
-            step=0
-            anime.css("transform","translateY(0)")
-            anime.each(function () {
-                if (!$(this).hasClass("hide")) {
-                    $(this).toggleClass("hide")
-                }
-            })
-        })
-
-        $('.window .fa-chevron-right').click(function () {
-            if (step == wlength) {
-                anime.css("transform", 'translateX(0vw)');
-                step = 0
-            } else {
-                step = step - 100
-                anime.css("transform", "translateX(" + step + "vw)")
-            }
-
-        })
+    }).responseJSON.language;
+    return value;
+}
+var langs = getValue()
 
 
-        $('.window .fa-chevron-left').click(function () {
+var anim_steps = [
+    "acds",
+    "bold",
+    "complex",
+    "flexible",
+    "likeable",
+    "simple",
+    "weird"
+]
 
-            if (step == 0) {
-                anime.css("transform", 'translateX(' + wlength + 'vw)');
-                step = wlength
-            } else {
-                step = step + 100
-                anime.css("transform", "translateX(" + step + "vw)")
-            }
 
-        })
 
+function randomArray() {
+
+    var a = [anim_steps[0]]
+
+    while (a.length < 7) {
+
+        var r = anim_steps[Math.floor(Math.random() * 6 + 1)]
+
+        a.indexOf(r) === -1 ? a.push(r) : null
+    }
+
+    return a
+}
+
+function typed_string(i, s, l) {
+    return i == 0 ? "Alejandro De Sisto" : langs[l]["#" + s]
+}
+
+
+function setAnim() {
+
+    var anim = bodymovin.loadAnimation({
+        container: $("#lottiecontainer").get(0),
+        renderer: 'svg',
+        loop: true,
+        path: 'JSON/all.json',
+        autoplay: 'false'
     })
 
+    var r = randomArray()
+    var i = 0
 
-    var bvalues = [
-    "bold"
-    , "complex"
-    , "flexible"
-    , "likeable"
-    , "simple"
-    , "weird"
-]
+
+
+
+    "config_ready loopComplete".split(" ").forEach(function (e) {
+        anim.addEventListener(e, unique_loop, false);
+    });
+
+        $("#header_animation").append("<h2 id='value_container'></h2>")
+    
+    
+    function unique_loop() {
+        var currentLanguage = localStorage.MultiLanguage
+        anim.goToAndPlay(r[i])
+        var t_s = typed_string(i, r[i], currentLanguage)
+
+        
+        var typed = new Typed('#value_container', {
+            strings: [t_s],
+            typeSpeed: 80,
+            showCursor: false,
+            fadeOut: true,
+            fadeOutClass: 'typed-fade-out',
+            fadeOutDelay: 600,
+
+        });
+        
+        i < 6 ? i++ : (i = 0, r = randomArray())
+
+    }
+
+    return anim
+}
+
 
     function bgoffset() {
         $(this).children().each(function () {
@@ -96,17 +114,6 @@
 
     function setvar(number, colour) {
         document.documentElement.style.setProperty('--' + number + '_color', colour)
-    }
-
-    function randomValue() {
-        var bvalue = bvalues[Math.floor(Math.random() * bvalues.length)];
-        var lang = localStorage.MultiLanguage
-        $(".header i").attr("class", "icon-" + bvalue)
-        $(".headertext").prop("id", bvalue)
-        $.getJSON("lang.json", function (json) {
-            $(".header span").text(json["language"][lang]["#" + bvalue]);
-        });
-        setTimeout(randomValue, 5000);
     }
 
 
@@ -145,5 +152,79 @@
             "opacity": "1"
         })
         $(id).toggleClass("hide")
-
     }
+    $(document).ready(function () {
+
+        $.MultiLanguage("lang.json")
+
+        setAnim()
+
+        $(".port_bg").each(bgoffset)
+
+        $(".portfolio").mouseenter(function () {
+            $(this).find(".port_bg").children().css("bottom", "0")
+        })
+        $(".portfolio").mouseleave(function () {
+            var off = -180;
+
+            $(this).find(".port_bg").children().each(function () {
+                off = off - 60
+                $(this).css("bottom", off + "%")
+            })
+        })
+
+        let anime = $('.window>div');
+        var step = 0;
+
+        $('.window .fa-xmark').click(function () {
+            $(".hidean").css({
+                "visibility": "hidden",
+                "transform": "translateY(10em)",
+                "opacity": "0"
+            })
+            step = 0
+            anime.css("transform", "translateY(0)")
+            anime.each(function () {
+                if (!$(this).hasClass("hide")) {
+                    $(this).toggleClass("hide")
+                }
+            })
+        })
+
+        $('.window .fa-chevron-right').click(function () {
+            if (step == wlength) {
+                anime.css("transform", 'translateX(0vw)');
+                step = 0
+            } else {
+                step = step - 100
+                anime.css("transform", "translateX(" + step + "vw)")
+            }
+
+        })
+
+
+        $('.window .fa-chevron-left').click(function () {
+
+            if (step == 0) {
+                anime.css("transform", 'translateX(' + wlength + 'vw)');
+                step = wlength
+            } else {
+                step = step + 100
+                anime.css("transform", "translateX(" + step + "vw)")
+            }
+
+        })
+
+    })
+
+$(window).scroll(function() {
+    if ($(this).scrollTop() > 200) { //use `this`, not `document`
+        $('footer').css({
+            'display': 'none'
+        });
+    } else{
+        $('footer').css({
+            'display': 'initial'
+        })
+    }
+});

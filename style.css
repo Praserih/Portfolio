@@ -8,11 +8,12 @@ html {
 }
 
 
-.logo_loop_fill path{
-    fill:var(--secondary_color);
+.logo_loop_fill path {
+    fill: var(--secondary_color);
 }
-.logo_loop_stroke path{
-    stroke:var(--secondary_color);
+
+.logo_loop_stroke path {
+    stroke: var(--secondary_color);
 }
 
 body {
@@ -208,15 +209,22 @@ i {
     margin: 0
 }
 
-.headertext {
-    font-size: 3rem;
-    padding: 2rem;
-    letter-spacing: 1rem;
-    text-transform: uppercase;
+
+#lottiecontainer {
+    width: 5em;
+    height: 4em;
+    margin: 0;
 }
 
-.header i {
-    font-size: 3.5rem;
+#value_container {
+    letter-spacing: .7rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1em;
+    font-size: 3em;
+    margin: .5em;
 }
 
 /* Containers */
@@ -373,7 +381,7 @@ i {
     justify-content: center
 }
 
-.contact>div {
+.contact > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -389,7 +397,7 @@ i {
     font-size: 1.2rem
 }
 
-.contact div p i{
+.contact div p i {
     text-align: center
 }
 
@@ -397,26 +405,28 @@ i {
     font-size: 7em;
     display: block
 }
-.contact > div > *{
-        padding: .5rem;
+
+.contact > div > * {
+    padding: .5rem;
 
 }
-.contact svg{
-	fill: var(--secondary_color);
+
+.contact svg {
+    fill: var(--secondary_color);
     width: 7em;
 }
-.contact a:hover{
+
+.contact a:hover {
     text-decoration: underline
-	
 }
-.contact div>div{
-    
+
+.contact div > div {
+
     display: grid;
     grid-template-columns: auto auto;
     justify-content: center;
     align-content: center;
-    gap:.5rem
-	
+    gap: .5rem
 }
 
 
@@ -659,6 +669,7 @@ i {
     max-width: 30vh;
 }
 
+
 /* Footer */
 
 footer {
@@ -677,4 +688,108 @@ footer {
     transform: translateY(10em);
     opacity: 0;
     transition: transform .3s ease, opacity .2s ease
+}
+
+h2 {
+    text-transform: uppercase;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    body {
+        font-size: 1em;
+    }
+
+    #value_container {
+        font-size: 2em
+    }
+
+    .container {
+        flex-direction: column;
+        width: 100vw;
+        padding-right: initial;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .navbar {
+        justify-content: center;
+        flex-direction: row;
+        right: initial;
+        padding: 4px;
+        width: 100%;
+        background-color: var(--primary_color);
+    }
+
+    footer {
+        bottom: initial;
+        left: initial;
+        top: 8px;
+        padding: 8px;
+    }
+
+    .theme,
+    #langbar_container {
+        bottom: 0px;
+        top: initial;
+        margin: 4px;
+    }
+
+    #langbar_container {
+        flex-direction: column-reverse;
+        padding-bottom: 0;
+        padding-right: 0;
+    }
+
+    #me {
+        overflow: visible;
+    }
+
+    .about .content_right {
+        width: initial;
+        flex-basis: initial;
+        max-height: initial;
+        border: none;
+
+    }
+
+    .cvsection li {
+        padding-right: 1.5em;
+    }
+
+    .content_right i {
+        right: .75em
+    }
+
+    .content_full {
+        grid-template-columns: 1fr;
+    }
+
+    .jobs i {
+        position: initial;
+    }
+
+    .portfolio {
+        min-height: 50vh;
+    }
+
+    .qr_arrangement svg,
+    .qr_arrangement i:nth-of-type(2),
+    .qr_arrangement i:nth-of-type(3) {
+        visibility: hidden;
+        display: none;
+    }
+
+    .contact {
+        padding: 4px;
+    }
+
+    .contact > div {
+        flex-direction: column
+    }
+
+    .jobs {
+        flex-direction: column;
+    }
 }
