@@ -695,7 +695,7 @@ h2 {
 }
 
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
 
     body {
         font-size: 1em;
@@ -727,6 +727,7 @@ h2 {
         left: initial;
         top: 8px;
         padding: 8px;
+        transition: all .5s cubic-bezier(.17, .67, .45, 1.18)
     }
 
     .theme,
@@ -792,4 +793,57 @@ h2 {
     .jobs {
         flex-direction: column;
     }
+
+    .content_left > i,
+    .jobs i,
+    .contact div div i {
+        font-size: 5rem;
+    }
+
+    .window {
+        transform: initial !important;
+        height: 100vh;
+        overflow-y: scroll;
+        padding-top:2em;
+        position: fixed;
+        top:0;
+    }
+
+    .window > div {
+        flex-direction: column;
+    }
+
+    .page {
+        grid-template-columns: 1fr;
+        gap: 1em;
+        height: auto;
+        min-height: 50vh;
+        padding: 1em 4px;
+    }
+
+    .page * {
+        max-width: 90vw !important;
+    }
+
+    .page p {
+        width: 90vw;
+    }
+
+    .pagebuttons a:nth-child(odd) {
+        display: none;
+        visibility: hidden;
+    }
+
+    .pbcontainer {
+        width: auto;
+        position: fixed;
+        top: 0;
+        bottom:initial;
+        padding:0;
+        height: auto;
+        margin:0;
+        right:-2em;
+        left:initial;
+    }
+
 }

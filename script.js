@@ -13,19 +13,19 @@
 
 
 
-function getValue() {
-    var value = $.ajax({
-        url: 'lang.json',
-        async: false,
-        dataType: "json"
+    function getValue() {
+        var value = $.ajax({
+            url: 'lang.json',
+            async: false,
+            dataType: "json"
 
-    }).responseJSON.language;
-    return value;
-}
-var langs = getValue()
+        }).responseJSON.language;
+        return value;
+    }
+    var langs = getValue()
 
 
-var anim_steps = [
+    var anim_steps = [
     "acds",
     "bold",
     "complex",
@@ -37,70 +37,70 @@ var anim_steps = [
 
 
 
-function randomArray() {
+    function randomArray() {
 
-    var a = [anim_steps[0]]
+        var a = [anim_steps[0]]
 
-    while (a.length < 7) {
+        while (a.length < 7) {
 
-        var r = anim_steps[Math.floor(Math.random() * 6 + 1)]
+            var r = anim_steps[Math.floor(Math.random() * 6 + 1)]
 
-        a.indexOf(r) === -1 ? a.push(r) : null
+            a.indexOf(r) === -1 ? a.push(r) : null
+        }
+
+        return a
     }
 
-    return a
-}
-
-function typed_string(i, s, l) {
-    return i == 0 ? "Alejandro De Sisto" : langs[l]["#" + s]
-}
+    function typed_string(i, s, l) {
+        return i == 0 ? "Alejandro De Sisto" : langs[l]["#" + s]
+    }
 
 
-function setAnim() {
+    function setAnim() {
 
-    var anim = bodymovin.loadAnimation({
-        container: $("#lottiecontainer").get(0),
-        renderer: 'svg',
-        loop: true,
-        path: 'JSON/all.json',
-        autoplay: 'false'
-    })
+        var anim = bodymovin.loadAnimation({
+            container: $("#lottiecontainer").get(0),
+            renderer: 'svg',
+            loop: true,
+            path: 'JSON/all.json',
+            autoplay: 'false'
+        })
 
-    var r = randomArray()
-    var i = 0
+        var r = randomArray()
+        var i = 0
 
 
 
 
-    "config_ready loopComplete".split(" ").forEach(function (e) {
-        anim.addEventListener(e, unique_loop, false);
-    });
+        "config_ready loopComplete".split(" ").forEach(function (e) {
+            anim.addEventListener(e, unique_loop, false);
+        });
 
         $("#header_animation").append("<h2 id='value_container'></h2>")
-    
-    
-    function unique_loop() {
-        var currentLanguage = localStorage.MultiLanguage
-        anim.goToAndPlay(r[i])
-        var t_s = typed_string(i, r[i], currentLanguage)
 
-        
-        var typed = new Typed('#value_container', {
-            strings: [t_s],
-            typeSpeed: 80,
-            showCursor: false,
-            fadeOut: true,
-            fadeOutClass: 'typed-fade-out',
-            fadeOutDelay: 600,
 
-        });
-        
-        i < 6 ? i++ : (i = 0, r = randomArray())
+        function unique_loop() {
+            var currentLanguage = localStorage.MultiLanguage
+            anim.goToAndPlay(r[i])
+            var t_s = typed_string(i, r[i], currentLanguage)
 
+
+            var typed = new Typed('#value_container', {
+                strings: [t_s],
+                typeSpeed: 80,
+                showCursor: false,
+                fadeOut: true,
+                fadeOutClass: 'typed-fade-out',
+                fadeOutDelay: 600,
+
+            });
+
+            i < 6 ? i++ : (i = 0, r = randomArray())
+
+        }
+
+        return anim
     }
-
-    return anim
-}
 
 
     function bgoffset() {
@@ -214,17 +214,11 @@ function setAnim() {
             }
 
         })
-
+        $('body').on('touchmove touchend', function (e) {
+            namehide(e)
+        });
     })
 
-$(window).scroll(function() {
-    if ($(this).scrollTop() > 200) { //use `this`, not `document`
-        $('footer').css({
-            'display': 'none'
-        });
-    } else{
-        $('footer').css({
-            'display': 'initial'
-        })
-    }
-});
+    function namehide(e) {
+        e.type == "touchmove"? $("footer").css("top", "-3em") : $("footer").css("top", "8px")
+            }
