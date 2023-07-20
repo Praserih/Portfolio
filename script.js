@@ -214,11 +214,22 @@
             }
 
         })
-        $('body').on('touchmove touchend', function (e) {
-            namehide(e)
-        });
+       
     })
 
     function namehide(e) {
         e.type == "touchmove"? $("footer").css("top", "-3em") : $("footer").css("top", "8px")
             }
+
+function responsive(maxWidth) {
+  if (maxWidth.matches) {
+
+       $('body').on('touchmove touchend', function (e) {
+            namehide(e)
+        });
+    
+  } }
+ var maxWidth = window.matchMedia("(max-width: 1024px)");
+ 
+ responsive(maxWidth);
+ maxWidth.addListener(responsive);
