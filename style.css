@@ -821,7 +821,7 @@ grid-template-columns: 1fr;
     .page {
         grid-template-columns: 1fr;
         gap: 1em;
-        height: auto;
+        height: auto!important;
         min-height: 50vh;
         padding: 1em 4px;
     }
