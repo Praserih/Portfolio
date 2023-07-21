@@ -155,6 +155,10 @@
     }
     $(document).ready(function () {
 
+        responsive(maxWidth);
+ maxWidth.addListener(responsive);
+        
+
         $.MultiLanguage("lang.json")
 
         setAnim()
@@ -231,5 +235,4 @@ function responsive(maxWidth) {
   } }
  var maxWidth = window.matchMedia("(max-width: 1024px)");
  
- responsive(maxWidth);
- maxWidth.addListener(responsive);
+ 
