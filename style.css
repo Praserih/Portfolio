@@ -702,9 +702,19 @@ h2 {
     }
 #PH_pr .page:nth-of-type(3) div {
 grid-template-columns: 1fr;
-    height: auto
+    height: auto!important
     
 }
+
+    #PH_pr .page:nth-of-type(4) div{
+
+        grid-template-columns:1fr;
+        height:auto!important;
+    }
+ #PH_pr .page:nth-of-type(4) div img{
+     max-heigth:initial!important;
+ }
+    
 
     #value_container {
         font-size: 2em
@@ -812,6 +822,7 @@ grid-template-columns: 1fr;
         padding-top:2em;
         position: fixed;
         top:0;
+        padding-bottom:2em;
     }
 
     .window > div {
