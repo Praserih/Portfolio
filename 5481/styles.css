@@ -1,39 +1,54 @@
 :root {
-            --primary: #1C646D;
-            --secondary: #A0CD60;
-            --bg:#38184C ;
-
-        }
-
-        body {
-            background-color: var(--bg);
-            padding: 0;
-            margin:0
-
-        }
-.logo-svg{
-    
+    --primary: #1C646D;
+    --secondary: #A0CD60;
+    --bg: #38184C;
+    --stroke-width: 18%;
+    --secondary-stroke-width: calc(var(--stroke-width)/2)
 }
-        .primary-path,
-        .secondary-path {
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
 
-        .primary-path {
-            fill: none;
-            stroke: var(--primary);
+body {
+    background-color: var(--bg);
+    padding: 0;
+    margin: 0;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
 
-        }
+::-webkit-scrollbar {
+    display: none;
+}
 
-        .secondary-path {
-            fill: none;
-            stroke: var(--secondary);
+.svg-container {
+    width: 100%;
+    /* Full width of the parent */
+}
 
-        }
+.logo-svg {
+    width: 20vw;
+    /* Responsive width */
+    height: auto;
+    /* Maintain aspect ratio */
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    padding: 1vw;
+    box-sizing: border-box
 
-        .tertiary-path {
-            fill: none;
-            stroke: var(--bg);
-            stroke-linecap: round;
-        }
+}
+
+.primary-path {
+    stroke: var(--primary);
+    stroke-width: var(--stroke-width);
+}
+
+.secondary-path {
+    stroke: var(--secondary);
+    stroke-width: var(--stroke-width);
+}
+
+.tertiary-path {
+    stroke: var(--bg);
+    stroke-width: var(--secondary-stroke-width);
+}
