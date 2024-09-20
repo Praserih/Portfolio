@@ -1,13 +1,15 @@
-let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+// Get the viewport width and set it as a CSS custom property
+function setViewportWidth() {
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    document.documentElement.style.setProperty('--vw', `${vw}px`);
+}
 
-const width = vw/5;
-const height = width;
+// Call setViewportWidth initially and on window resize
+setViewportWidth();
+window.addEventListener('resize', setViewportWidth);
+
+// Constants for SVG generation
 const gridSize = 5;
-const cellSize = width / gridSize;
-
-const primaryStrokeWeight = width/(gridSize*1.1);
-const secondaryStrokeWeight = primaryStrokeWeight;
-const tertiaryStrokeWeight = secondaryStrokeWeight/2;
 
 // Cached SVG logos
 let cachedSvgs = [];
@@ -22,14 +24,14 @@ function generateLogo() {
     primaryPaths.forEach(path => {
         const svgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         svgPath.setAttribute('d', path);
-        svgPath.setAttribute('class', 'primary-path'); // CSS class for styling
+        svgPath.setAttribute('class', 'primary-path');
         svg.appendChild(svgPath);
     });
 
     secondaryPaths.forEach(path => {
         const svgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         svgPath.setAttribute('d', path);
-        svgPath.setAttribute('class', 'secondary-path'); // CSS class for styling
+        svgPath.setAttribute('class', 'secondary-path');
         svg.appendChild(svgPath);
     });
 
@@ -43,26 +45,13 @@ function generateLogo() {
 // Function to create an SVG element
 function createSvgLogoElement() {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', width);
-    svg.setAttribute('height', height);
-    svg.setAttribute('class', 'logo-svg'); // CSS styling
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('class', 'logo-svg');
     return svg;
 }
 
 // Function to append the generated logo to the document
 function appendLogoToDocument(svg) {
-    // Set stroke weights in JavaScript using variables
-    svg.querySelectorAll('.primary-path').forEach(path => {
-        path.setAttribute('stroke-width', primaryStrokeWeight); // Primary path stroke weight
-    });
-    svg.querySelectorAll('.secondary-path').forEach(path => {
-        path.setAttribute('stroke-width', secondaryStrokeWeight); // Secondary path stroke weight
-    });
-    svg.querySelectorAll('.tertiary-path').forEach(path => {
-        path.setAttribute('stroke-width', tertiaryStrokeWeight); // Tertiary path stroke weight
-    });
-
-    // Append the generated SVG as a separate element
     document.body.appendChild(svg);
 }
 
@@ -75,6 +64,7 @@ function cacheSvg(svg) {
 
 // Function to trace a path
 function tracePath(pattern, startX, startY, type, visited) {
+    const cellSize = 100 / gridSize;
     const startXCoord = startX * cellSize + cellSize / 2;
     const startYCoord = startY * cellSize + cellSize / 2;
     const path = [`M${startXCoord},${startYCoord}`];
@@ -187,3 +177,33 @@ window.onload = () => {
     // Append a new logo on each click
     document.addEventListener('click', generateLogo);
 };
+
+// Add this style to your CSS file or in a <style> tag in your HTML
+/*
+:root {
+    --vw: 100vw;
+}
+
+.logo-svg {
+    width: calc(var(--vw) / 5);
+    height: calc(var(--vw) / 5);
+}
+
+.primary-path {
+    stroke: #000000;
+    stroke-width: calc(var(--vw) / (5 * 5 * 1.1));
+    fill: none;
+}
+
+.secondary-path {
+    stroke: #666666;
+    stroke-width: calc(var(--vw) / (5 * 5 * 1.1));
+    fill: none;
+}
+
+.tertiary-path {
+    stroke: #999999;
+    stroke-width: calc(var(--vw) / (5 * 5 * 2.2));
+    fill: none;
+}
+*/
