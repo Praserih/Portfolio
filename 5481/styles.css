@@ -1,0 +1,39 @@
+:root {
+            --primary: #1C646D;
+            --secondary: #A0CD60;
+            --bg:#38184C ;
+
+        }
+
+        body {
+            background-color: var(--bg);
+            padding: 0;
+            margin:0
+
+        }
+.logo-svg{
+    
+}
+        .primary-path,
+        .secondary-path {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .primary-path {
+            fill: none;
+            stroke: var(--primary);
+
+        }
+
+        .secondary-path {
+            fill: none;
+            stroke: var(--secondary);
+
+        }
+
+        .tertiary-path {
+            fill: none;
+            stroke: var(--bg);
+            stroke-linecap: round;
+        }
