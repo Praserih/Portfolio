@@ -36,7 +36,7 @@ function generateLogo() {
     });
 
     // Create tertiary paths directly in the SVG
-    appendTertiaryPaths(svg, pattern, primaryPaths);
+    appendTertiaryPaths(svg, pattern, primaryPaths, secondaryPaths);
 
     appendLogoToDocument(svg);
     cacheSvg(svg);
@@ -170,20 +170,20 @@ function generatePaths(pattern, type) {
 }
 
 // Function to append tertiary paths to the SVG
-function appendTertiaryPaths(svg, pattern, primaryPaths) {
-    const endpoints = getEndpoints(primaryPaths);
-    const numTertiaryPaths = Math.ceil(endpoints.length / 2); // At least half of the endpoints
+function appendTertiaryPaths(svg, pattern, primaryPaths, secondaryPaths) {
+    const primaryEndpoints = getEndpoints(primaryPaths);
+    const secondaryEndpoints = getEndpoints(secondaryPaths);
+    const allEndpoints = [...primaryEndpoints, ...secondaryEndpoints];
+    const numTertiaryPaths = Math.ceil(allEndpoints.length / 3); // At least half of the endpoints
 
     for (let i = 0; i < numTertiaryPaths; i++) {
-        const randomEndpoint = endpoints.splice(Math.floor(Math.random() * endpoints.length), 1)[0];
+        const randomEndpoint = allEndpoints.splice(Math.floor(Math.random() * allEndpoints.length), 1)[0];
         const svgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         svgPath.setAttribute('d', `M${randomEndpoint.x},${randomEndpoint.y} L${randomEndpoint.x},${randomEndpoint.y}`);
         svgPath.setAttribute('class', 'tertiary-path');
         svgPath.setAttribute('transform', 'scale(0)');
         svg.appendChild(svgPath);
     }
-
-
 }
 
 // Function to get the endpoints of paths (for tertiary path generation)
