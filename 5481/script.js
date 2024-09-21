@@ -35,11 +35,32 @@ function generateLogo() {
         svg.appendChild(svgPath);
     });
 
-    // Generate tertiary paths
+    // Create tertiary paths directly in the SVG
     appendTertiaryPaths(svg, pattern, primaryPaths);
 
     appendLogoToDocument(svg);
     cacheSvg(svg);
+
+    // Animate the paths
+    animatePaths(svg).then(() => {
+        // Animate tertiary paths from scale 0 to 100% once the primary animation is finished
+        const tertiaryPaths = svg.querySelectorAll('.tertiary-path');
+        tertiaryPaths.forEach(path => {
+            const bbox = path.getBBox();
+            const centerX = bbox.x + bbox.width / 2;
+            const centerY = bbox.y + bbox.height / 2;
+            path.style.transformOrigin = `${centerX}px ${centerY}px`;
+            path.style.transform = 'scale(0)';
+            path.animate([
+                { transform: 'scale(0)' },
+                { transform: 'scale(1)' }
+            ], {
+                duration: 200,
+                fill: 'forwards',
+                easing: 'ease-out'
+            });
+        });
+    });
 }
 
 // Function to create an SVG element
@@ -158,8 +179,11 @@ function appendTertiaryPaths(svg, pattern, primaryPaths) {
         const svgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         svgPath.setAttribute('d', `M${randomEndpoint.x},${randomEndpoint.y} L${randomEndpoint.x},${randomEndpoint.y}`);
         svgPath.setAttribute('class', 'tertiary-path');
+        svgPath.setAttribute('transform', 'scale(0)');
         svg.appendChild(svgPath);
     }
+
+
 }
 
 // Function to get the endpoints of paths (for tertiary path generation)
@@ -178,32 +202,32 @@ window.onload = () => {
     document.addEventListener('click', generateLogo);
 };
 
-// Add this style to your CSS file or in a <style> tag in your HTML
-/*
-:root {
-    --vw: 100vw;
+// Function to animate SVG paths
+function animatePaths(svg) {
+    return new Promise((resolve) => {
+        const primaryPaths = svg.querySelectorAll('.primary-path');
+        const secondaryPaths = svg.querySelectorAll('.secondary-path');
+
+        // Animate primary and secondary paths
+        const animations = [...primaryPaths, ...secondaryPaths].map(path => {
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
+            return path.animate([
+                { strokeDashoffset: length },
+                { strokeDashoffset: 0 }
+            ], {
+                duration: 1000,
+                fill: 'forwards',
+                easing: 'ease-out'
+            });
+        });
+
+        // Resolve the promise when all animations are complete
+        Promise.all(animations.map(animation => animation.finished)).then(() => {
+            resolve();
+        });
+    });
 }
 
-.logo-svg {
-    width: calc(var(--vw) / 5);
-    height: calc(var(--vw) / 5);
-}
-
-.primary-path {
-    stroke: #000000;
-    stroke-width: calc(var(--vw) / (5 * 5 * 1.1));
-    fill: none;
-}
-
-.secondary-path {
-    stroke: #666666;
-    stroke-width: calc(var(--vw) / (5 * 5 * 1.1));
-    fill: none;
-}
-
-.tertiary-path {
-    stroke: #999999;
-    stroke-width: calc(var(--vw) / (5 * 5 * 2.2));
-    fill: none;
-}
-*/
+// Modify the generateLogo function to include animation
