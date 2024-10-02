@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive SVG Animation</title>
+    <style>
+        svg {
+            width: 100%;
+            height: 80vh;
+        }
+        .cls-1 {
+            fill: black;
+        }
+        .cls-2 {
+            fill: none;
+            stroke: #329979;
+            stroke-miterlimit: 10;
+            stroke-width: .75px;
+        }
+        .cls-3 {
+            fill: #329979;
+        }
+        #controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 221.75 72.69">
+        <!-- Circles will be added here -->
+    </svg>
+    <div id="controls">
+        <button id="backBtn" disabled>Previous</button>
+        <button id="nextBtn">Next</button>
+    </div>
+    <script>
+        const svgNS = "http://www.w3.org/2000/svg";
+        const svg = document.getElementById('Layer_1');
+        const nextBtn = document.getElementById('nextBtn');
+        const backBtn = document.getElementById('backBtn');
+        let currentGroupIndex = 0;
+
+        const circles = [
+            {cx: 63.54, cy: 24.99}, {cx: 49.37, cy: 70.42}, {cx: 49.37, cy: 2.27},
+            {cx: 63.54, cy: 24.99}, {cx: 35.2, cy: 24.99}, {cx: 49.37, cy: 70.42},
+            {cx: 2.27, cy: 2.27}, {cx: 11.88, cy: 41.1}, {cx: 35.2, cy: 24.99},
+            {cx: 96.47, cy: 2.27}, {cx: 86.86, cy: 41.1}, {cx: 172.38, cy: 70.42},
+            {cx: 172.38, cy: 2.27}, {cx: 186.56, cy: 24.99}, {cx: 158.21, cy: 24.99},
+            {cx: 172.38, cy: 70.42}, {cx: 125.28, cy: 2.27}, {cx: 134.89, cy: 41.1},
+            {cx: 158.21, cy: 24.99}, {cx: 219.49, cy: 2.27}, {cx: 209.88, cy: 41.1},
+            {cx: 186.56, cy: 24.99}
+        ];
+
+        const groups = [
+            {id: "1", line: [49.37, 70.42, 62.36, 28.79], polygon: [63.34, 30.03, 63.55, 24.99, 60.84, 29.25, 63.34, 30.03]},
+            {id: "2", line: [216.2, 4.53, 186.56, 24.99], polygon: [214.73, 3.96, 219.49, 2.27, 216.21, 6.11, 214.73, 3.96]},
+            {id: "3", line: [87.82, 37.23, 96.47, 2.27], polygon: [89.3, 36.68, 86.86, 41.1, 86.77, 36.05, 89.3, 36.68]},
+            {id: "4", line: [175.52, 67.97, 209.88, 41.1], polygon: [177.03, 68.45, 172.38, 70.42, 175.42, 66.39, 177.03, 68.45]},
+            {id: "5", line: [49.37, 70.42, 83.72, 43.56], polygon: [83.83, 45.14, 86.86, 41.1, 82.22, 43.08, 83.83, 45.14]},
+            {id: "6", line: [209.88, 41.1, 218.53, 6.14], polygon: [219.58, 7.32, 219.49, 2.27, 217.05, 6.69, 219.58, 7.32]},
+            {id: "7", line: [96.47, 2.27, 66.83, 22.72], polygon: [66.82, 21.14, 63.54, 24.99, 68.3, 23.29, 66.82, 21.14]},
+            {id: "8", line: [173.57, 66.62, 186.56, 24.99], polygon: [175.08, 66.15, 172.38, 70.42, 172.59, 65.37, 175.08, 66.15]},
+            {id: "9", line: [49.37, 70.42, 36.39, 28.79], polygon: [37.9, 29.25, 35.2, 24.99, 35.4, 30.03, 37.9, 29.25]},
+            {id: "10", line: [170.27, 5.65, 158.21, 24.99], polygon: [168.69, 5.71, 172.38, 2.27, 170.91, 7.1, 168.69, 5.71]},
+            {id: "11", line: [61.43, 21.6, 49.37, 2.27], polygon: [62.07, 20.15, 63.55, 24.99, 59.85, 21.54, 62.07, 20.15]},
+            {id: "12", line: [186.56, 24.99, 174.49, 5.65], polygon: [176.07, 5.71, 172.38, 2.27, 173.86, 7.1, 176.07, 5.71]},
+            {id: "13", line: [49.37, 2.27, 37.31, 21.6], polygon: [36.67, 20.15, 35.2, 24.99, 38.89, 21.54, 36.67, 20.15]},
+            {id: "14", line: [128.56, 4.53, 158.21, 24.99], polygon: [128.55, 6.11, 125.28, 2.27, 130.04, 3.96, 128.55, 6.11]},
+            {id: "15", line: [10.92, 37.23, 2.27, 2.27], polygon: [11.98, 36.05, 11.88, 41.1, 9.44, 36.68, 11.98, 36.05]},
+            {id: "16", line: [169.24, 67.97, 134.89, 41.1], polygon: [169.35, 66.39, 172.38, 70.42, 167.74, 68.45, 169.35, 66.39]},
+            {id: "17", line: [49.37, 70.42, 15.02, 43.56], polygon: [16.53, 43.08, 11.88, 41.1, 14.92, 45.14, 16.53, 43.08]},
+            {id: "18", line: [134.89, 41.1, 126.24, 6.14], polygon: [127.72, 6.69, 125.28, 2.27, 125.18, 7.32, 127.72, 6.69]},
+            {id: "19", line: [2.27, 2.27, 31.92, 22.72], polygon: [30.44, 23.29, 35.2, 24.99, 31.92, 21.14, 30.44, 23.29]},
+            {id: "20", line: [171.2, 66.62, 158.21, 24.99], polygon: [172.18, 65.37, 172.38, 70.42, 169.68, 66.15, 172.18, 65.37]}
+        ];
+
+        function createCircle(circle) {
+            const c = document.createElementNS(svgNS, "circle");
+            c.setAttribute("class", "cls-1");
+            c.setAttribute("cx", circle.cx);
+            c.setAttribute("cy", circle.cy);
+            c.setAttribute("r", "2.27");
+            return c;
+        }
+
+        function createGroup(group) {
+            const g = document.createElementNS(svgNS, "g");
+            g.setAttribute("id", `_x${group.id}`);
+
+            const line = document.createElementNS(svgNS, "line");
+            line.setAttribute("class", "cls-2");
+            line.setAttribute("x1", group.line[0]);
+            line.setAttribute("y1", group.line[1]);
+            line.setAttribute("x2", group.line[2]);
+            line.setAttribute("y2", group.line[3]);
+
+            const polygon = document.createElementNS(svgNS, "polygon");
+            polygon.setAttribute("class", "cls-3");
+            polygon.setAttribute("points", group.polygon.join(" "));
+
+            g.appendChild(line);
+            g.appendChild(polygon);
+            return g;
+        }
+
+        // Add all circles to the SVG
+        circles.forEach(circle => svg.appendChild(createCircle(circle)));
+
+        function updateButtons() {
+            backBtn.disabled = currentGroupIndex === 0;
+            nextBtn.disabled = currentGroupIndex === groups.length;
+            if (currentGroupIndex === groups.length) {
+                nextBtn.textContent = "All Lines Shown";
+            } else {
+                nextBtn.textContent = "Next";
+            }
+        }
+
+        function showNext() {
+            if (currentGroupIndex < groups.length) {
+                svg.appendChild(createGroup(groups[currentGroupIndex]));
+                currentGroupIndex++;
+                updateButtons();
+            }
+        }
+
+        function showPrevious() {
+            if (currentGroupIndex > 0) {
+                currentGroupIndex--;
+                svg.removeChild(svg.lastChild);
+                updateButtons();
+            }
+        }
+
+        nextBtn.addEventListener('click', showNext);
+        backBtn.addEventListener('click', showPrevious);
+
+        // Add scroll event listener
+        window.addEventListener('wheel', (event) => {
+            if (event.deltaY < 0) {
+                showPrevious();
+            } else {
+                showNext();
+            }
+        });
+
+        // Add keyboard event listener for arrow keys
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') {
+                showPrevious();
+            } else if (event.key === 'ArrowRight') {
+                showNext();
+            }
+        });
+
+        updateButtons();
+    </script>
+</body>
+</html>
