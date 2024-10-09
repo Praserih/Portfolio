@@ -521,7 +521,7 @@ function setAnim() {
       container: document.getElementById("parametri"),
       renderer: 'svg',
       loop: true,
-      path: '/assets/parametri.json',
+      path: 'assets/parametri.json',
       autoplay: true,
   });
   anim.addEventListener('DOMLoaded', function() {
